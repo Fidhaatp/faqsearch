@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #039fa5fa;
+            /* Main brand color */
+            --secondary-color: #047b80fa;
+            /* Secondary color */
+            --background: #f8fafc;
+            /* Page background */
+            --text-color: #1e293b;
+            /* Main text color */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-box::placeholder {
+            color: #94a3b8;
+        }
+
+        .faq-section {
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 1.5rem 1.5rem;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #fef08a;
+            padding: 0 0.2rem;
+            border-radius: 3px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 0;
+            display: none;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+            }
+
+            .faq-question {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+
+            .faq-answer {
+                padding: 0 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchInput" placeholder="Search health questions...">
+        </div>
+
+        <div id="faqContainer">
+            <div class="faq-section">
+                <h2 class="section-title">General Questions</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What health screenings do I need?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Recommended screenings vary by age, gender, and medical history. Most adults should get blood
+                        pressure checks, cholesterol tests, and diabetes screenings annually. Consult your physician for
+                        personalized recommendations.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I prepare for a blood test?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Typically requires 8-12 hours fasting (water allowed). Avoid strenuous exercise 24 hours before.
+                        Inform your doctor about any medications. Wear loose clothing for easy arm access.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="section-title">Preparation & Guidelines</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I drink water before screening?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, plain water is allowed. Avoid other beverages like coffee, tea, or juice. Stay hydrated but
+                        don't overconsume - 1-2 glasses is sufficient.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Should I stop medications before tests?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Never stop prescribed medications without consulting your doctor. Some supplements/vitamins
+                        might need pausing - inform our staff about all substances you're taking.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="section-title">Testing & Results</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long for test results?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Most results within 24-48 hours. Complex tests (like cancer markers) may take 3-5 days. You'll
+                        receive results via secure portal with doctor's interpretation.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if my results are abnormal?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Don't panic - many factors can affect results. Our medical team will contact you to discuss
+                        findings and next steps, which may include follow-up tests or specialist referrals.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="section-title">Privacy & Safety</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is my health data confidential?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. We follow HIPAA regulations with encrypted data storage. Results are only shared
+                        with authorized personnel and your designated physician.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What COVID safety measures are in place?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        All staff wear PPE, rooms sanitized between patients, HEPA air filtration, and optional
+                        contactless check-in. We follow CDC guidelines for healthcare facilities.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search"></i>
+            <p>No matching health questions found</p>
+        </div>
+    </div>
+
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                const matches = question.includes(searchTerm) || answer.includes(searchTerm);
+
+                item.style.display = matches ? 'block' : 'none';
+                if (matches) visibleCount++;
+
+                // Highlight matches
+                if (searchTerm) {
+                    highlightMatches(item, searchTerm);
+                    item.classList.add('active');
+                    item.querySelector('.faq-answer').style.display = 'block';
+                } else {
+                    removeHighlights(item);
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visibleCount > 0 ? 'none' : 'flex';
+        });
+
+        // Toggle answers
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const parent = question.parentElement;
+                parent.classList.toggle('active');
+                const answer = parent.querySelector('.faq-answer');
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Scroll to top button
+        const scrollTop = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTop.classList.toggle('show', window.scrollY > 500);
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Highlight functions
+        function highlightMatches(element, term) {
+            const regex = new RegExp(`(${term})`, 'gi');
+            const question = element.querySelector('.faq-question');
+            const answer = element.querySelector('.faq-answer');
+
+            question.innerHTML = question.textContent.replace(regex, '<span class="highlight">$1</span>');
+            answer.innerHTML = answer.textContent.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function removeHighlights(element) {
+            element.querySelectorAll('.highlight').forEach(highlight => {
+                highlight.outerHTML = highlight.innerHTML;
+            });
+        }
+    </script>
+</body>
+
+</html>
